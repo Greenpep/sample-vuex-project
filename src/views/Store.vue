@@ -2,10 +2,11 @@
   <h1>Store</h1>
   <h2>Here are the IU songs that are currently in store</h2>
   <ul>
-    <li v-for="product in products">
-      <button v-if="product.amount>0" @click="product.amount--">-</button>
+    <li v-for="product in $store.state.products">
+      <img :src="product.image">
+      <button v-if="product.amount>0" @click="$store.commit('removeItem', product); $store.commit('calculatePrice', product); $store.commit('calculateTotal')">-</button>
       <span class="song">{{ product.song }}</span>
-      <button @click="product.amount++">+</button>
+      <button @click="$store.commit('addItem', product); $store.commit('calculatePrice', product); $store.commit('calculateTotal')">+</button>
       <span class="price"> {{ product.price }}.00$</span>
       <span class="amount"> Amount in cart: {{ product.amount }}</span>
     </li>
@@ -13,39 +14,9 @@
 </template>
 
 <script>
+
 export default {
   name: "Store.vue",
-
-  data(){
-    return{
-      products: [
-        {song: 'BBIBBI', price: 40, amount: 0},
-        {song: 'Palette', price: 40, amount: 0},
-        {song: 'Good Day', price: 40, amount: 0},
-        {song: 'YOU&I', price: 40, amount: 0},
-        {song: 'eight', price: 40, amount: 0},
-        {song: 'Celebrity', price: 35, amount: 0},
-        {song: 'Blueming', price: 35, amount: 0},
-        {song: 'Friday', price: 35, amount: 0},
-        {song: 'Raindrop', price: 35, amount: 0},
-        {song: 'dlwlrma', price: 35, amount: 0},
-        {song: 'Flu', price: 35, amount: 0},
-        {song: 'Not Spring, Love, or Cherry Blossoms', price: 35, amount: 0},
-        {song: 'Coin', price: 30, amount: 0},
-        {song: 'heart', price: 30, amount: 0}
-      ],
-      methods:{
-        removeSong(product){
-          if(product.amount != 0){
-            product.amount--;
-          }
-        },
-        addSong(product){
-          product.amount++;
-        }
-      }
-    }
-  }
 }
 </script>
 
@@ -66,5 +37,13 @@ export default {
     font-weight: bold;
     color: #cd90ff;
     display: block;
+  }
+
+  img{
+    width: 100px;
+    height: 100px;
+    float: left;
+    position: relative;
+    bottom: 17px;
   }
 </style>

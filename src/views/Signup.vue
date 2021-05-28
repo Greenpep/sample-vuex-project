@@ -1,29 +1,29 @@
 <template>
   <h1>Here is the sign up form to take part of the Uaenas</h1>
-  <form>
+  <form @submit.prevent="$store.commit('passwordConfig')">
     <label>Username:</label>
-    <input type="text" required v-model="username">
+    <input type="text" required v-model="$store.state.username">
 
     <label>Password:</label>
-    <input type="password" required v-model="password">
+    <input type="password" required v-model="$store.state.password">
 
     <label>Repeat Password:</label>
-    <input type="password" required v-model="requiredPassword">
-    <div v-if="passwordError" class="error">{{ this.passwordError }}</div>
+    <input type="password" required v-model="$store.state.requiredPassword">
+    <div v-if="$store.state.passwordError" class="error">{{ $store.state.passwordError }}</div>
 
     <label>Email:</label>
-    <input type="email" required v-model="email">
+    <input type="email" required v-model="$store.state.email">
 
     <label>Fan Level:</label>
-    <select v-model="fan">
+    <select v-model="$store.state.fan">
       <option value="new">New Fan</option>
       <option value="casual">Casual Fan</option>
       <option value="die-hard">Die-Hard Fan</option>
     </select>
 
     <div class="news">
-      <input type="checkbox" v-model="news">
-      <label>Do you want to receive the latest deals and news about IU and her merchandise?</label>
+      <input type="checkbox" v-model="$store.state.news">
+      <label>Do you want to receive the latest news about IU?</label>
     </div>
 
     <div class="submit">
@@ -35,17 +35,6 @@
 <script>
 export default {
   name: "Signup.vue",
-  data(){
-    return{
-      username:'',
-      password:'',
-      requiredPassword:'',
-      email:'',
-      fan:'new',
-      news:'false',
-      passwordError: ''
-    }
-  },
   methods: {
     passwordConfig(){
       if (this.password.length <= 5){
@@ -77,6 +66,7 @@ export default {
   input, select {
     display: block;
     padding: 10px 6px;
+    margin-bottom: 25px;
     width: 100%;
     box-sizing: border-box;
     border: none;

@@ -5,28 +5,16 @@
   <h2>
     Here is the applause counter for entertainment:
   </h2>
-  <div class="block" @click="applause">
+  <div class="block" @click="$store.commit('applause')">
     click to applause
   </div>
-  <p>Applause Counter: {{ this.applause_counter }}</p>
+  <p>Applause Counter: {{ $store.state.applause_counter }}</p>
 </template>
 
 <script>
 
 export default {
   name: "Home.vue",
-
-  data(){
-    return{
-      applause_counter: 0
-    }
-  },
-
-  methods: {
-    applause(){
-      this.applause_counter++;
-    }
-  }
 }
 
 </script>
